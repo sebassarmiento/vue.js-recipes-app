@@ -1,11 +1,9 @@
 <template>
 
     <div class="app-menu">
-        <ul>
             <i class="fas fa-search"></i>
             <i class="fas fa-heart"></i>
             <i class="fas fa-plus"></i>
-        </ul>
     </div>
     
 </template>
@@ -25,6 +23,10 @@ export default {
     align-items: center;
     justify-content: center;
     position: sticky;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.329);
+    z-index: 2;
 }
 
 .app-menu i{

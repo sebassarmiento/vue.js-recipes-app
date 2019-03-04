@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppMenu />
-    <Feed />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -12,8 +12,7 @@ import Feed from './components/Feed.vue'
 export default {
   name: 'app',
   components: {
-    AppMenu,
-    Feed
+    AppMenu
   }
 }
 </script>
@@ -34,8 +33,9 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background: gray;
+  background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
   height: 100vh;
   width: 100vw;
+  overflow: scroll;
 }
 </style>
