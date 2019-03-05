@@ -24,7 +24,6 @@ export default {
     methods: {
 
         fullRecipe(){
-            console.log('Entra', this.recipe.recipe_id)
             this.$router.push(`/recipe/${this.recipe.recipe_id}`)
         }
 
@@ -36,7 +35,8 @@ export default {
 
 .recipe{
     height: 400px;
-    width: 400px;
+    max-width: 100%;
+    min-width: 100%;
     background: white;
     border-radius: 0px;
     margin: auto;
@@ -59,7 +59,7 @@ export default {
 }
 
 .recipe-info{
-    max-height: 50%;
+    max-height: 30%;
     flex: 2;
     background: white;
     padding: 12px;
