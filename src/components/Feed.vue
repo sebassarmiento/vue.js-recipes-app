@@ -29,7 +29,22 @@ export default {
         loadMore(){
             this.loadingBtn = true
             this.page++
-            fetch(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a&q=vegan&page=${this.page}`)
+            this.getData(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a&q=vegan&page=${this.page}`)
+        },
+
+        searchData(url){
+            fetch(url)
+            .then(d => d.json())
+            .then(res => {
+                this.recipes = res.recipes
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+
+        getData(url){
+            fetch(url)
             .then(d => d.json())
             .then(res => {
                 this.loadingBtn = false
@@ -43,15 +58,26 @@ export default {
 
     },
     mounted(){
+
         fetch('https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a&q=vegan')
         .then(d => d.json())
         .then(res => {
-            console.log(res.recipes[0])
+            console.log(res.recipes)
             this.recipes = res.recipes
         })
         .catch(err => {
             console.log(err)
         })
+
+    },
+    watch: {
+        $route(to, from){
+            console.log(to)
+            console.log(from)
+            if(to.query.q){
+                this.searchData(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a&q=${to.query.q}`)
+            }
+        }
     }
 }
 </script>

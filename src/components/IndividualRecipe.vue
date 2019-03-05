@@ -68,7 +68,7 @@ export default {
 }
 
 .recipe-img img{
-    max-height: calc(100vh - 60px);
+    max-height: 60vh;
     max-width: 50vw;
 }
 

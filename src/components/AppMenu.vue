@@ -2,8 +2,8 @@
 
     <div class="app-menu">
             <div class="search">
-                <input type="text">
-                <i class="fas fa-search"></i>
+                <input v-model="query" type="text">
+                <i v-on:click="searchQuery" class="fas fa-search"></i>
             </div>
             <i v-on:click="redirect('/')" class="fas fa-home"></i>
             <i v-on:click="redirect('/liked')" class="fas fa-heart"></i>
@@ -14,10 +14,19 @@
 <script>
 export default {
     name: 'AppMenu',
+    data(){
+        return {
+            query: ''
+        }
+    },
     methods: {
 
         redirect(link){
             this.$router.push(link)
+        },
+        searchQuery(){
+            console.log(this.query)
+            if(this.query.length > 0)this.$router.push({ path: '/', query: { q: this.query } })
         }
 
     }
@@ -37,7 +46,7 @@ export default {
     left: 0;
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.329);
     z-index: 2;
-    padding: 0px 12px;
+    padding: 0px 24px;
 }
 
 .app-menu i{
@@ -52,11 +61,12 @@ export default {
 }
 
 .app-menu .search input{
-    padding: 8px 12px;
+    padding: 8px 18px;
     font-size: 1em;
     border-radius: 24px;
     border: none;
     width: 30vw;
+    font-weight: lighter;
 }
 .app-menu .search i{
     padding: 12px 40px;

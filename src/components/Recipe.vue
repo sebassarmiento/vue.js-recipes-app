@@ -87,6 +87,11 @@ export default {
     overflow: hidden;
 }
 
+.recipe-rating{
+    position: absolute;
+    top: 60%;
+    right: 30px;
+}
 .recipe-rating i{
     color: #f78ca0;
 }
