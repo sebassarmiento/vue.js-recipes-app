@@ -50,7 +50,6 @@ export default {
     flex: 3;
     display: flex;
     align-items: center;
-    background: green;
     justify-content: center;
 }
 .recipe-img img{

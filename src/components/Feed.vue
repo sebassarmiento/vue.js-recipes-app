@@ -1,26 +1,36 @@
 <template>
 
+    <div>
+
     <div v-if="recipes" class="feed">
+        <h1 class="results-text" v-if="searched && recipes.length > 0" >Showing results for '{{ searched }}'</h1>
+        <h1 class="results-text" v-else-if="searched" >No results for '{{ searched }}'</h1>
         <Recipe v-for="(recipe, index) in recipes" v-bind:key="index" v-bind:recipe="recipe" />
-        <button v-on:click="loadMore" >{{ loadingBtn ? 'Loading...' : 'Load more' }}</button>
+        <button v-if="recipes.length > 0" v-on:click="loadMore" >{{ loadingBtn ? 'Loading...' : 'Load more' }}</button>
     </div>
+    <Loader v-else />
     
+    </div>
+
 </template>
 
 <script>
 import Recipe from '../components/Recipe.vue'
+import Loader from '../components/Loader.vue'
 
 export default {
     name: 'Feed',
     components: {
-        Recipe
+        Recipe,
+        Loader
     },
     data(){
 
         return {
             recipes: null,
             loadingBtn: false,
-            page: 1
+            page: 1,
+            searched: false
         }
 
     },
@@ -29,7 +39,7 @@ export default {
         loadMore(){
             this.loadingBtn = true
             this.page++
-            this.getData(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a&q=vegan&page=${this.page}`)
+            this.getData(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a${this.searched ? `&q=${this.searched}` : ''}&page=${this.page}`)
         },
 
         searchData(url){
@@ -58,8 +68,10 @@ export default {
 
     },
     mounted(){
-
-        fetch('https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a&q=vegan')
+        console.log('Mounted')
+        console.log(this.searched, this.$route.query)
+        if(this.$route.query.q)this.searched = this.$route.query.q
+        fetch(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a${this.searched ? `&q=${this.searched}` : ''}`)
         .then(d => d.json())
         .then(res => {
             console.log(res.recipes)
@@ -75,7 +87,13 @@ export default {
             console.log(to)
             console.log(from)
             if(to.query.q){
+                this.recipes = null
+                this.searched = to.query.q
                 this.searchData(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a&q=${to.query.q}`)
+            } else {
+                this.recipes = null
+                this.searched = false
+                this.searchData(`https://www.food2fork.com/api/search?key=fe8c22adb6442e2470b0b3061e94109a`)
             }
         }
     }
@@ -91,6 +109,24 @@ export default {
     grid-gap: 12px;
     padding: 12px;
 }
+
+.results-text{
+    grid-column: 1 / -1;
+    padding: 18px;
+    text-align: center;
+    animation: showResultsText 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 1em;
+    transform-origin: top;
+}
+@keyframes showResultsText {
+    0%{
+        transform: translateY(-150px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+
 
 .feed button{
     grid-column: 1 / -1;

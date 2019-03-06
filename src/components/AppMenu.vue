@@ -6,7 +6,6 @@
                 <i v-on:click="searchQuery" class="fas fa-search"></i>
             </div>
             <i v-on:click="redirect('/')" class="fas fa-home"></i>
-            <i v-on:click="redirect('/liked')" class="fas fa-heart"></i>
     </div>
     
 </template>
@@ -38,7 +37,7 @@ export default {
 
 .app-menu{
     background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);    
-    height: 60px;
+    height: 70px;
     display: flex;
     align-items: center;
     position: sticky;

@@ -1,5 +1,7 @@
 <template>
 
+    <div>
+
     <div v-if="recipe" class="individual-recipe">
         <div class="recipe-title">
             <h2>{{ recipe.title }}</h2>
@@ -15,12 +17,20 @@
             </ul>
         </div>
     </div>
+    <Loader v-else />
+
+    </div>
     
 </template>
 
 <script>
+import Loader from '../components/Loader.vue'
+
 export default {
     name: 'IndividualRecipe',
+    components: {
+        Loader
+    },
     data(){
         return {
             recipe: null
@@ -51,7 +61,7 @@ export default {
 
 .individual-recipe{
     display: flex;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 70px);
     overflow: hidden;
     align-items: center;
     position: relative;
@@ -59,8 +69,8 @@ export default {
 
 .recipe-img{
     flex: 1;
-    min-height: calc(100vh - 60px);
-    max-height: calc(100vh - 60px);
+    min-height: calc(100vh - 70px);
+    max-height: calc(100vh - 70px);
     max-width: 50vw;
     display: flex;
     align-items: center;
